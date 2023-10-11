@@ -1,6 +1,8 @@
 from flask import Flask , request
 import json
 
+from binance_future_trade import binance_future_open_long , binance_future_open_short , binance_future_tpsl_long , binance_future_tpsl_short
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -25,18 +27,22 @@ def webhook_binance_future():
                 
                 if "OPEN LONG" in trade_side:
                         # เรียกฟังก์ชั่นในการเปิดสัญญาLONG ส่งไปที่ Exchange , Broker
+                        binance_future_open_long(trade_symbol,trade_amount)
                         pass
                 
                 elif "OPEN SHORT" in trade_side:
                         # เรียกฟังก์ชั่นในการเปิดสัญญาSHORT ส่งไปที่ Exchange , Broker
+                        binance_future_open_short(trade_symbol,trade_amount)
                         pass
                 
                 elif "TPSL LONG" in trade_side:
                         # เรียกฟังก์ชั่นในการปิดสัญญาLONG ส่งไปที่ Exchange , Broker
+                        binance_future_tpsl_long(trade_symbol,trade_amount)
                         pass
                 
                 elif "TPSL SHORT" in trade_side:
                         # เรียกฟังก์ชั่นในการปิดสัญญาSHORT ส่งไปที่ Exchange , Broker
+                        binance_future_tpsl_short(trade_symbol,trade_amount)
                         pass
                 
                 return "200"
